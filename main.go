@@ -28,6 +28,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"github.com/darthlukan/libbring"
@@ -60,7 +61,18 @@ func main() {
 	args := flag.Args()
 
 	if len(args) == 1 {
-		// TODO: Determine if postal code, ID, or tracking number
+		// TODO: There's a better way, think about it...
+		if len(args[0]) == 6 {
+			DisplayPickupById(args[0])
+		}
+
+		if len(args[0] > 3 && len(args) < 10) {
+			DisplayPickupByZip(args[0])
+		}
+
+		if len(args[0]) > 10 {
+			DisplayTracking(args[0])
+		}
 	}
 
 	if len(args) == 2 {
@@ -93,4 +105,20 @@ func DisplayPickupByLocation(lat, lon float64) {
 			point["name"], point["address"], point["city"],
 			point["postalCode"], point["openingHoursEnglish"], point["distanceInKm"])
 	}
+}
+
+func DisplayPickupById(id string) {
+	resp, err := libbring.PickById(id)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf(
+		"Name: %v\nAddress: %v\nCity: %v\nPostal Code: %v\nOperating Hours: %v\nDistance: %v\n\n",
+		resp["name"], point["address"], point["city"],
+		resp["postalCode"], resp["openingHoursEnglish"], resp["distanceInKm"])
+}
+
+func DisplayPickupByZip(zip string) {
+	// TODO: Lookup return structure to fill out logic.
 }
