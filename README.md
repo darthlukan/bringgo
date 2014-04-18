@@ -5,7 +5,7 @@
 
 ## Description
 
-> Description: A Go CLI client using github.com/darthlukan/libbring to allow users
+> Description: A Go CLI client using [libbring](github.com/darthlukan/libbring) to allow users
 > to retrieve data provided by Bring's API.  Features include tracking packages by
 > tracking number and finding the nearest pickup point based on location criteria
 > such as Zip/Postal Code, Latitude and Longitude, and location ID.
